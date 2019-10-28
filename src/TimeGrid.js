@@ -6,7 +6,7 @@ import { findDOMNode } from 'react-dom'
 import memoize from 'memoize-one'
 
 import * as dates from './utils/dates'
-import DayColumn from './DayColumn'
+// import DayColumn from './DayColumn'
 import TimeGutter from './TimeGutter'
 
 import getWidth from 'dom-helpers/width'
@@ -16,6 +16,9 @@ import { inRange, sortEvents } from './utils/eventLevels'
 import Resources from './utils/Resources'
 import { DayLayoutAlgorithmPropType } from './utils/propTypes'
 
+import { FixedSizeList as List } from 'react-window'
+import Test from './test'
+import AutoSizer from 'react-virtualized-auto-sizer'
 export default class TimeGrid extends Component {
   constructor(props) {
     super(props)
@@ -117,34 +120,63 @@ export default class TimeGrid extends Component {
     const resources = this.memoizedResources(this.props.resources, accessors)
     const groupedEvents = resources.groupEvents(events)
 
-    return resources.map(([id, resource], i) =>
-      range.map((date, jj) => {
-        let daysEvents = (groupedEvents.get(id) || []).filter(event =>
-          dates.inRange(
-            date,
-            accessors.start(event),
-            accessors.end(event),
-            'day'
-          )
-        )
-
-        return (
-          <DayColumn
-            {...this.props}
-            localizer={localizer}
-            min={dates.merge(date, min)}
-            max={dates.merge(date, max)}
-            resource={resource && id}
-            components={components}
-            isNow={dates.eq(date, now, 'day')}
-            key={i + '-' + jj}
-            date={date}
-            events={daysEvents}
-            dayLayoutAlgorithm={dayLayoutAlgorithm}
-          />
-        )
-      })
+    return (
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            itemData={{
+              resouces: resources,
+              groupedEvents: groupedEvents,
+              range: range,
+              now: now,
+              accessors: accessors,
+              components: components,
+              localizer: localizer,
+              min: min,
+              max: max,
+              dayLayoutAlgorithm: dayLayoutAlgorithm,
+            }}
+            itemCount={resources.length}
+            itemSize={200}
+            className="List"
+            height={height}
+            width={width}
+          >
+            {Test}
+          </List>
+        )}
+      </AutoSizer>
     )
+    //*********************************/
+    //ICI
+    // return resources.map(([id, resource], i) =>
+    //   range.map((date, jj) => {
+    //     let daysEvents = (groupedEvents.get(id) || []).filter(event =>
+    //       dates.inRange(
+    //         date,
+    //         accessors.start(event),
+    //         accessors.end(event),
+    //         'day'
+    //       )
+    //     )
+
+    //     return (
+    //       <DayColumn
+    //         {...this.props}
+    //         localizer={localizer}
+    //         min={dates.merge(date, min)}
+    //         max={dates.merge(date, max)}
+    //         resource={resource && id}
+    //         components={components}
+    //         isNow={dates.eq(date, now, 'day')}
+    //         key={i + '-' + jj}
+    //         date={date}
+    //         events={daysEvents}
+    //         dayLayoutAlgorithm={dayLayoutAlgorithm}
+    //       />
+    //     )
+    //   })
+    // )
   }
 
   render() {

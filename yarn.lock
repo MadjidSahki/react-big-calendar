@@ -10787,14 +10787,14 @@ react-overlays@^0.8.0:
     react-transition-group "^2.2.0"
     warning "^3.0.0"
 
-react-overlays@^2.0.0-0:
-  version "2.0.0-0"
-  resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-2.0.0-0.tgz#b05e9eabdfd94be62408a872f8da5c644fd7e2a0"
-  integrity sha512-6wTjpIE0NmXkzpgttpKMIzEOBSjdzHa6ZYoz3xCN0ibKXOW7JvIAUVxvivpCJEzzkhQdAgt3zQyvJMDX28AArw==
+react-overlays@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-2.1.0.tgz#3671cadab085a519c90a51b9b1402a70281e31d4"
+  integrity sha512-tHPGTZosbQSo82yb9x4YCsmJJtspKvAPL5kXVnyoB2Z5UoAU3VetIuh2VblfVT408us5nLJd9uDtwI3xWDHS6w==
   dependencies:
     "@babel/runtime" "^7.4.5"
     "@restart/hooks" "^0.3.12"
-    dom-helpers "^3.4.0"
+    dom-helpers "^5.1.0"
     popper.js "^1.15.0"
     prop-types "^15.7.2"
     uncontrollable "^7.0.0"
